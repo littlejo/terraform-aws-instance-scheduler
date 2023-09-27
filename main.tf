@@ -33,6 +33,10 @@ locals {
       stop  = "cron(0 18 ? * MON-THU *)"
       start = "cron(0 9 ? * TUE-FRI *)"
     }
+    weekend_night = {
+      stop  = "cron(0 18 ? * MON-FRI *)"
+      start = "cron(0 9 ? * MON-FRI *)"
+    }
   }
 }
 
@@ -80,7 +84,7 @@ resource "aws_iam_role" "this" {
 }
 
 resource "aws_scheduler_schedule" "stop" {
-  name       = "stop-${var.period}-${var.name}"
+  name       = "${var.name}-stop-${var.period}"
   group_name = var.group_name
 
   schedule_expression_timezone = var.timezone
@@ -101,7 +105,7 @@ resource "aws_scheduler_schedule" "stop" {
 }
 
 resource "aws_scheduler_schedule" "start" {
-  name       = "start-${var.period}-${var.name}"
+  name       = "${var.name}-start-${var.period}"
   group_name = var.group_name
 
   schedule_expression_timezone = var.timezone
