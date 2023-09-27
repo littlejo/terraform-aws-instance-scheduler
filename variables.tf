@@ -14,6 +14,18 @@ variable "period" {
   type        = string
 }
 
+variable "start_time" {
+  description = "Time when you start your instance"
+  type        = string
+  default     = "9:00"
+}
+
+variable "stop_time" {
+  description = "Time when you stop your instance"
+  type        = string
+  default     = "18:00"
+}
+
 variable "type" {
   description = "ec2 or rds to shutdown"
   type        = string

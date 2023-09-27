@@ -24,18 +24,27 @@ locals {
     }
   }
 
+  start_hr = tonumber(split(":", var.start_time)[0])
+  stop_hr  = tonumber(split(":", var.stop_time)[0])
+
+  start_min = tonumber(split(":", var.start_time)[1])
+  stop_min  = tonumber(split(":", var.stop_time)[1])
+
+  start_cron = "${local.start_min} ${local.start_hr}"
+  stop_cron  = "${local.stop_min} ${local.stop_hr}"
+
   schedule = {
     weekend = {
-      stop  = "cron(0 18 ? * FRI *)"
-      start = "cron(0 9 ? * MON *)"
+      stop  = "cron(${local.stop_cron} ? * FRI *)"
+      start = "cron(${local.start_cron} ? * MON *)"
     }
     night = {
-      stop  = "cron(0 18 ? * MON-THU *)"
-      start = "cron(0 9 ? * TUE-FRI *)"
+      stop  = "cron(${local.stop_cron} ? * MON-THU *)"
+      start = "cron(${local.start_cron} ? * TUE-FRI *)"
     }
     weekend_night = {
-      stop  = "cron(0 18 ? * MON-FRI *)"
-      start = "cron(0 9 ? * MON-FRI *)"
+      stop  = "cron(${local.stop_cron} ? * MON-FRI *)"
+      start = "cron(${local.start_cron} ? * MON-FRI *)"
     }
   }
 }
