@@ -14,6 +14,17 @@ variable "period" {
   type        = string
 }
 
+variable "schedule" {
+  description = "You can customize your different schedule"
+  type = map(
+    object({
+      start = string
+      stop  = string
+    })
+  )
+  default = null
+}
+
 variable "start_time" {
   description = "Time when you start your instance"
   type        = string

@@ -103,7 +103,7 @@ resource "aws_scheduler_schedule" "stop" {
     maximum_window_in_minutes = var.flexible_time_window.maximum_window_in_minutes
   }
 
-  schedule_expression = local.schedule[var.period].stop
+  schedule_expression = var.schedule == null ? local.schedule[var.period].stop : var.schedule[var.period].stop
 
   target {
     arn      = local.target[var.type].stop.arn
@@ -124,7 +124,7 @@ resource "aws_scheduler_schedule" "start" {
     maximum_window_in_minutes = var.flexible_time_window.maximum_window_in_minutes
   }
 
-  schedule_expression = local.schedule[var.period].start
+  schedule_expression = var.schedule == null ? local.schedule[var.period].start : var.schedule[var.period].start
 
   target {
     arn      = local.target[var.type].start.arn
