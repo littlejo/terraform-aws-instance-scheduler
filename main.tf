@@ -68,6 +68,8 @@ resource "aws_scheduler_schedule" "stop" {
 
     input = local.target[var.type].json
   }
+
+  state = var.enabled ? "ENABLED" : "DISABLED"
 }
 
 resource "aws_scheduler_schedule" "start" {
@@ -89,4 +91,6 @@ resource "aws_scheduler_schedule" "start" {
 
     input = local.target[var.type].json
   }
+
+  state = var.enabled ? "ENABLED" : "DISABLED"
 }

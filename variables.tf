@@ -63,6 +63,12 @@ variable "target" {
   type        = any
 }
 
+variable "enabled" {
+  description = "enabled ?"
+  type        = bool
+  default     = true
+}
+
 variable "create_iam_role" {
   description = "Create iam role"
   type        = bool
